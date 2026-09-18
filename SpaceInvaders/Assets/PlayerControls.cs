@@ -4,10 +4,13 @@ public class PlayerControls : MonoBehaviour
 {
     public KeyCode moveLeft = KeyCode.A;      // Move a raquete para cima
     public KeyCode moveRight = KeyCode.D;    // Move a raquete para baixo
-    public float speed = 8.0f;             // Define a velocidade da raquete
+    public KeyCode shootKey = KeyCode.Space;
+    public float speed = 5.0f;             // Define a velocidade da raquete
     public float boundX = 6.5f;            // Define os limites em X
     private Rigidbody2D rb2d;  
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject bulletPrefab;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -37,5 +40,19 @@ public class PlayerControls : MonoBehaviour
         }
         transform.position = pos;               // Atualiza a posição da raquete
 
+        if (Input.GetKeyDown(shootKey))
+        {
+            Atirar();
+        }
+
+    }
+
+    void Atirar()
+    {
+        if (bulletPrefab != null)
+        {
+            // Cria o tiro e não precisa configurar mais nada!
+            Instantiate(bulletPrefab, transform.position, transform.rotation);
+        }
     }
 }
